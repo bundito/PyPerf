@@ -1,10 +1,16 @@
 
 import os
+
+from win10toast import ToastNotifier
+
+toaster = ToastNotifier()
+
+
 def isRunning(name):
 
     # call "tasklist", filtered to name of program
     # save to temp file for processing
-    os.system('tasklist /FI "IMAGENAME eq %s" /FI "STATUS eq running" > tmp.txt' % name)
+    os.system('tasklist /FI "IMAGENAME eq %s" > tmp.txt' % name)
     
     # read back the output of tasklist
     tmp = open('tmp.txt', 'r')
@@ -20,27 +26,39 @@ def isRunning(name):
     if file[-1].split()[0] == name:
         return True
     else:
-        return False
+          return False
 
 # End function isRunning()
 
-programs = (
-    ["BorderlessGaming.exe", "Borderless Gaming", "C:\Program Files (x86)\Borderless Gaming\BorderlessGaming.exe"],
-    ["ThrottleStop.exe", "ThrottleStop", "C:\ThrottleStop_8.70.6\ThrottleStop.exe"],
-    ["MSIAfterburner.exe", "MSI Afterburner", "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe"]
-    )
+def checkLoop():
 
-for prog in programs:
-    procName = prog[0]
-    prettyName = prog[1]
-    exeName = prog[2]
+    programs = (
+        ["BorderlessGaming.exe", "Borderless Gaming", "C:\Program Files (x86)\Borderless Gaming\BorderlessGaming.exe"],
+        ["ThrottleStop.exe", "ThrottleStop", "C:\ThrottleStop_8.70.6\ThrottleStop.exe"],
+        ["MSIAfterburner.exe", "MSI Afterburner", "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe"]
+        )
 
-    alive = isRunning(procName)
+    for prog in programs:
+        procName = prog[0]
+        prettyName = prog[1]
+        exeName = prog[2]
 
-    if alive:
-        print("%s is running", prettyName)
-    else:
-        print("It appears %s is down.", prettyName)
+        alive = isRunning(procName)
+
+        if not alive:
+            toaster.show_toast("Performance Apps", 
+                               prettyName + " is down. Restarting...",
+                               icon_path="fast.ico")          
+
+# END function checkloop
+
+    
+checkLoop()
+
+
+
+
+
 
 
     
