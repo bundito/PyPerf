@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyPerf", "PyPerf.pyproj", "{A69DCBE9-0A0D-4C6B-AFDA-70155A6F206E}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyPerf", "pyperf.pyproj", "{A69DCBE9-0A0D-4C6B-AFDA-70155A6F206E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

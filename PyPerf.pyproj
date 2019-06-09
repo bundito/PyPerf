@@ -3,14 +3,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a69dcbe9-0a0d-4c6b-afda-70155a6f206e</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>PyPerf.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>pyperf.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PyPerf</Name>
+    <Name>pyperf</Name>
     <RootNamespace>PyPerf</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PyPerf.py" />
+    <Compile Include="pyperf.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fast.ico" />

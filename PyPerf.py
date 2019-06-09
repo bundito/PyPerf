@@ -1,17 +1,19 @@
+""" A small checker to keep performance apps running """
 
 import os
 
+from time import sleep
 from win10toast import ToastNotifier
 
-toaster = ToastNotifier()
+TOASTER = ToastNotifier()
 
 
-def isRunning(name):
-
+def is_running(name):
+    """ Checks Windows tastlist for process name """
     # call "tasklist", filtered to name of program
     # save to temp file for processing
     os.system('tasklist /FI "IMAGENAME eq %s" > tmp.txt' % name)
-    
+
     # read back the output of tasklist
     tmp = open('tmp.txt', 'r')
     file = tmp.readlines()
@@ -25,40 +27,48 @@ def isRunning(name):
     # So we want the last line (file[-1]), split by spaces and the first entry - split()[0]
     if file[-1].split()[0] == name:
         return True
-    else:
-          return False
 
-# End function isRunning()
+    return False
 
-def checkLoop():
+# End function is_running()
+
+def check_loop():
+    """ Loops through defined programs and checks if running """
 
     programs = (
-        ["BorderlessGaming.exe", "Borderless Gaming", "C:\Program Files (x86)\Borderless Gaming\BorderlessGaming.exe"],
-        ["ThrottleStop.exe", "ThrottleStop", "C:\ThrottleStop_8.70.6\ThrottleStop.exe"],
-        ["MSIAfterburner.exe", "MSI Afterburner", "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe"]
+        [
+            "BorderlessGaming.exe",
+            "Borderless Gaming",
+            "C:\\Program Files (x86)\\Borderless Gaming\\BorderlessGaming.exe"
+        ],
+        [
+            "ThrottleStop.exe",
+            "ThrottleStop",
+            "C:\\ThrottleStop_8.70.6\\ThrottleStop.exe"
+        ],
+        [
+            "MSIAfterburner.exe",
+            "MSI Afterburner",
+            "C:\\Program Files (x86)\\MSI Afterburner\\MSIAfterburner.exe"
+        ],
         )
 
     for prog in programs:
-        procName = prog[0]
-        prettyName = prog[1]
-        exeName = prog[2]
+        proc_name = prog[0]
+        pretty_name = prog[1]
+        exe_name = prog[2]
 
-        alive = isRunning(procName)
+        alive = is_running(proc_name)
 
         if not alive:
-            toaster.show_toast("Performance Apps", 
-                               prettyName + " is down. Restarting...",
-                               icon_path="fast.ico")          
+            TOASTER.show_toast("Performance Apps",
+                               pretty_name + " went down. Restarting...",
+                               icon_path="fast.ico")
+
+            os.startfile(exe_name)
 
 # END function checkloop
 
-    
-checkLoop()
-
-
-
-
-
-
-
-    
+while True:
+    check_loop()
+    sleep(10)

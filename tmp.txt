@@ -1,4 +1,4 @@
 
 Image Name                     PID Session Name        Session#    Mem Usage
 ========================= ======== ================ =========== ============
-MSIAfterburner.exe            2172 Console                    3      5,804 K
+MSIAfterburner.exe           23128 Console                    3     30,020 K
