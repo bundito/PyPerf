@@ -2,7 +2,7 @@
 
 import os
 
-from time import sleep
+from time import sleep, localtime, strftime
 from win10toast import ToastNotifier
 
 TOASTER = ToastNotifier()
@@ -35,7 +35,31 @@ def is_running(name):
 def check_loop():
     """ Loops through defined programs and checks if running """
 
-    programs = (
+    for prog in PROGRAMS:
+        proc_name = prog[0]
+        pretty_name = prog[1]
+        exe_name = prog[2]
+
+        alive = is_running(proc_name)
+
+        if not alive:
+            TOASTER.show_toast("Performance Apps",
+                               pretty_name + " went down. Restarting...",
+                               icon_path="fast.ico")
+
+            os.startfile(exe_name)
+
+            restarted_at = strftime("%x - %X", localtime())
+            print(restarted_at + " restarted " + pretty_name)
+
+
+# END function checkloop
+
+#-------------------------------------------------------------------------#
+#   Main                                                                  #
+#-------------------------------------------------------------------------#
+
+PROGRAMS = (
         [
             "BorderlessGaming.exe",
             "Borderless Gaming",
@@ -53,21 +77,16 @@ def check_loop():
         ],
         )
 
-    for prog in programs:
-        proc_name = prog[0]
-        pretty_name = prog[1]
-        exe_name = prog[2]
 
-        alive = is_running(proc_name)
 
-        if not alive:
-            TOASTER.show_toast("Performance Apps",
-                               pretty_name + " went down. Restarting...",
-                               icon_path="fast.ico")
+print("BHI Performance App Monitor v0.7b")
+print("---------------------------------")
+print("Currently monitoring:")
 
-            os.startfile(exe_name)
+for item in PROGRAMS:
+    print("- %s" % item[1])
 
-# END function checkloop
+print("")
 
 while True:
     check_loop()
